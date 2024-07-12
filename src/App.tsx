@@ -5,7 +5,8 @@ import BasicTable from './components/BasicTable';
 import ControlPanel from './components/ControlPanel';
 import Summary from './components/Summary';
 import WeatherChart from './components/WeatherChart';
-import './App.css'
+import './App.css';
+
 function App() {
     const [indicators, setIndicators] = useState([]);
     const [rowsTable, setRowsTable] = useState([]);
@@ -34,8 +35,8 @@ function App() {
                 ];
 
                 // Set indicators state
-                const indicatorsElements = dataToIndicators.map(element =>
-                    <Indicator key={element[1]} title={element[0]} subtitle={element[1]} value={element[2]} />
+                const indicatorsElements = dataToIndicators.map((element, index) =>
+                    <Indicator key={index} title={element[0]} subtitle={element[1]} value={element[2]} />
                 );
                 setIndicators(indicatorsElements);
 
@@ -62,9 +63,9 @@ function App() {
             const response = await fetch("https://api.openweathermap.org/data/2.5/forecast?q=Guayaquil&mode=xml&appid=1e29d26cf4b4a687aba082a70b0eb34d");
             const data = await response.json();
 
-            // Set sunriseTime and date states with fetched data
-            setSunriseTime(data.sunriseTime);
-            setDate(data.date);
+            // Example: Assuming sunriseTime and date are part of the fetched JSON data
+            // setSunriseTime(data.sunriseTime);
+            // setDate(data.date);
         } catch (error) {
             console.error('Error fetching sunrise data', error);
         }
