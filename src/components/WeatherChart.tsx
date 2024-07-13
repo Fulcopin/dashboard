@@ -1,31 +1,72 @@
+import React, { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import Typography from '@mui/material/Typography';
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+} from 'recharts';
 
-export default function WeatherChart() {
-  const data = [
-    { hora: '03:00', precipitacion: 13, humedad: 78, nubosidad: 75 },
-    { hora: '06:00', precipitacion: 4, humedad: 81, nubosidad: 79 },
-    { hora: '09:00', precipitacion: 7, humedad: 82, nubosidad: 69 },
-    { hora: '12:00', precipitacion: 3, humedad: 73, nubosidad: 62 },
-    { hora: '15:00', precipitacion: 4, humedad: 66, nubosidad: 75 },
-    { hora: '18:00', precipitacion: 6, humedad: 64, nubosidad: 84 },
-    { hora: '21:00', precipitacion: 5, humedad: 77, nubosidad: 99 },
-  ];
+interface Config {
+  selectedVariable: number;
+  graficos: Array<object>;
+}
+
+const WeatherChart: React.FC<Config> = ({ selectedVariable, graficos }) => {
+  const [dato, setDato] = useState<Array<object>>([]);
+
+  useEffect(() => {
+    setDato(graficos);
+  }, [graficos]);
+
+  const data = dato.map((row: any) => ({
+    hora: row.hour,
+    precipitacion: parseFloat(row.precipitation),
+    humedad: parseInt(row.humidity),
+    nubosidad: parseInt(row.clouds)
+  }));
+
+  let filteredData;
+
+  if (selectedVariable >= 0) {
+    const selectedKey = ["precipitacion", "humedad", "nubosidad"][selectedVariable];
+    filteredData = data.map(row => ({
+      hora: row.hora,
+      [selectedKey]: row[selectedKey as keyof typeof row]
+    }));
+  } else {
+    filteredData = data;
+  }
 
   return (
     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+      <Typography variant="h6" component="div" gutterBottom>
+      TENDENCIAS CLIMATICAS
+      </Typography>
       <ResponsiveContainer width="100%" height={400}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="hora" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="precipitacion" stroke="#8884d8" />
-          <Line type="monotone" dataKey="humedad" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="nubosidad" stroke="#ffc658" />
+        <LineChart data={filteredData}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0"/>
+          <XAxis dataKey="hora" tick={{ fill: '#8884d8' }} />
+          <YAxis tick={{ fill: '#8884d8' }} />
+          <Tooltip contentStyle={{ backgroundColor: '#f5f5f5', border: 'none' }} />
+          <Legend wrapperStyle={{ color: '#8884d8' }} />
+          {selectedVariable === -1 ? (
+            <>
+              <Line type="monotone" dataKey="precipitacion" stroke="#8884d8" strokeWidth={2} activeDot={{ r: 8 }} />
+              <Line type="monotone" dataKey="humedad" stroke="#82ca9d" strokeWidth={2} activeDot={{ r: 8 }} />
+              <Line type="monotone" dataKey="nubosidad" stroke="#ffc658" strokeWidth={2} activeDot={{ r: 8 }} />
+            </>
+          ) : (
+            <Line
+              type="monotone"
+              dataKey={["precipitacion", "humedad", "nubosidad"][selectedVariable]}
+              stroke={["#8884d8", "#82ca9d", "#ffc658"][selectedVariable]}
+              strokeWidth={2}
+              activeDot={{ r: 8 }}
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
     </Paper>
   );
 }
+
+export default WeatherChart;

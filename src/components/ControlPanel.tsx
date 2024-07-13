@@ -7,7 +7,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-export default function ControlPanel() {
+interface ControlPanelProps {
+  onChange: (value: number) => void;
+}
+
+export default function ControlPanel({ onChange }: ControlPanelProps) {
   const items = [
     { name: 'Precipitación', description: 'Cantidad de agua, en forma de lluvia, nieve o granizo, que cae sobre una superficie en un período específico.' },
     { name: 'Humedad', description: 'Cantidad de vapor de agua presente en el aire, generalmente expresada como un porcentaje.' },
@@ -18,6 +22,7 @@ export default function ControlPanel() {
 
   const handleChange = (event: SelectChangeEvent) => {
     const idx = parseInt(event.target.value);
+    onChange(idx);
 
     if (descriptionRef.current !== null) {
       descriptionRef.current.innerHTML = idx >= 0 ? items[idx].description : '';
@@ -29,7 +34,7 @@ export default function ControlPanel() {
   return (
     <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
       <Typography mb={2} component="h3" variant="h6" color="primary">
-        Variables Meteorológicas
+        TENDENCIAS CLIMATICAS
       </Typography>
       <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>

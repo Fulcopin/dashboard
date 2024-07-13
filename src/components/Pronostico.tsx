@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 const Pronostico = () => {
     const [diarioData, setDiarioData] = useState<any>(null);
     const [semanalData, setSemanalData] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true); // Estado para manejar la carga
-    const [error, setError] = useState<string | null>(null); // Estado para manejar errores
+    const [loading, setLoading] = useState(true); 
+    const [error, setError] = useState<string | null>(null); 
 
     useEffect(() => {
         const fetchData = async () => {
-            const API_KEY = "1e29d26cf4b4a687aba082a70b0eb34d"; // Reemplaza con tu clave de API de OpenWeatherMap
+            const API_KEY = "1e29d26cf4b4a687aba082a70b0eb34d"; 
             const endpointDiario = `https://api.openweathermap.org/data/2.5/weather?lat=-2.1962&lon=-79.8862&units=metric&appid=${API_KEY}&lang=es`;
             const endpointSemanal = `https://api.openweathermap.org/data/2.5/forecast?q=Guayaquil&units=metric&appid=${API_KEY}&lang=es`;
             try {
@@ -26,16 +26,15 @@ const Pronostico = () => {
 
                 const diarioJson = await diarioResponse.json();
                 const semanalJson = await semanalResponse.json();
-                console.log("Diario API Response:", diarioJson); // Log para verificar la respuesta
-                console.log("Semanal API Response:", semanalJson); // Log para verificar la respuesta
-
+                console.log("Diario API Response:", diarioJson); 
+                console.log("Semanal API Response:", semanalJson); 
                 setDiarioData(diarioJson);
                 setSemanalData(semanalJson.list);
             } catch (error) {
                 console.error("Error fetching data:", error);
-                setError((error as Error).message); // Establecer el mensaje de error
+                setError((error as Error).message); 
             } finally {
-                setLoading(false); // Asegurarse de establecer loading a false al final
+                setLoading(false); 
             }
         };
 
@@ -58,26 +57,25 @@ const Pronostico = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>; // Mostrar mensaje de carga mientras se obtiene la información
+        return <div>Loading...</div>; 
     }
 
     if (error) {
-        return <div>Error al cargar los datos: {error}</div>; // Mostrar mensaje de error si ocurre
+        return <div>Error al cargar los datos: {error}</div>; 
     }
 
     if (!diarioData || !semanalData.length) {
-        return <div>No se encontraron datos</div>; // Manejo de errores si no se obtienen datos
+        return <div>No se encontraron datos</div>; 
     }
 
     const { main, wind, weather } = diarioData;
 
-    // Filtrar datos para obtener un pronóstico diario
     const dailyData = semanalData.filter((item: any) => item.dt_txt.includes("12:00:00"));
 
     return (
         <div>
             <section id="pronostico_diario" className="bg-light text-right p-4">
-                <h4 className="mb-3">Pronóstico del día</h4>
+                <h4 className="mb-3">PRONOSTICO DEL DIA</h4>
                 <div className="card_container">
                     <div className="card">
                         <div className="card-header bg-primary bg-gradient text-light fs-5">
@@ -95,7 +93,7 @@ const Pronostico = () => {
             </section>
 
             <section id="pronostico_semanal" className="bg-light text-right p-4">
-                <h4 className="mb-3">Pronóstico Semanal</h4>
+                <h4 className="mb-3">PRONOSTICO SEMANAL</h4>
                 <div id="weekly_report" className="container">
                     <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                         {dailyData.map((dayData, index) => {

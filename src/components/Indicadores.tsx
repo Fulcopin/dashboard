@@ -60,7 +60,7 @@ const Indicadores = () => {
 
     return (
         <section id="indicadores_diarios" className="p-4 text-right bg-light">
-            <h4 id="indicadores" className="mb-3">Indicadores</h4>
+            <h4 id="indicadores" className="mb-3">INDICADORES</h4>
             <div className="container">
                 <div className="row row-cols-1 row-cols-md-3 g-3 mt-2">
                     <div className="col">

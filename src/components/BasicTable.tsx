@@ -6,40 +6,60 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+
+interface RowData {
+  rangeHours: string | undefined;
+  windDirection: string | undefined;
+  precipitation: string | null | undefined;
+  humidity: string | null | undefined;
+  clouds: string | null | undefined;
+}
 
 interface Config {
-    rows: Array<{ rangeHours: string, windDirection: string }>;
+  rows: RowData[];
 }
 
 const BasicTable: React.FC<Config> = ({ rows }) => {
-    const [tableRows, setTableRows] = useState(rows);
+  const [tableRows, setTableRows] = useState(rows);
 
-    useEffect(() => {
-        setTableRows(rows);
-    }, [rows]);
+  useEffect(() => {
+    setTableRows(rows);
+  }, [rows]);
 
-    return (
-        <TableContainer component={Paper}>
-            <Table>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Rango de horas</TableCell>
-                        <TableCell align="right">Dirección del viento</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {tableRows.map((row, index) => (
-                        <TableRow key={index}>
-                            <TableCell component="th" scope="row">
-                                {row.rangeHours}
-                            </TableCell>
-                            <TableCell align="right">{row.windDirection}</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-    );
+  return (
+    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+      <Typography variant="h6" component="div" gutterBottom>
+      DATOS METEOROLOGICOS
+      </Typography>
+      <TableContainer component={Paper} className="table-responsive">
+        <Table className="table table-striped table-hover">
+          <TableHead className="thead-dark">
+            <TableRow>
+              <TableCell>Rango de horas</TableCell>
+              <TableCell align="right">Dirección del viento</TableCell>
+              <TableCell align="right">Precipitación</TableCell>
+              <TableCell align="right">Humedad</TableCell>
+              <TableCell align="right">Nubes</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tableRows.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {row.rangeHours}
+                </TableCell>
+                <TableCell align="right">{row.windDirection}</TableCell>
+                <TableCell align="right">{row.precipitation}</TableCell>
+                <TableCell align="right">{row.humidity}</TableCell>
+                <TableCell align="right">{row.clouds}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
+  );
 }
 
 export default BasicTable;

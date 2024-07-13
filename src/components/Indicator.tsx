@@ -1,48 +1,42 @@
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Icon from '@mui/material/Icon';
-import { BeachAccess, Cloud, WbSunny } from '@mui/icons-material'; // Ejemplos de íconos
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMapMarkerAlt, faGlobe, faCompass } from '@fortawesome/free-solid-svg-icons';
 
-interface IndicatorProps {
-  title: string;
-  subtitle: string;
-  value: string | number; // Acepta tanto string como number
-  type: 'sunny' | 'cloudy' | 'beach'; // Tipo de indicador para seleccionar el ícono adecuado
+interface Config {
+  title?: string;
+  subtitle?: string;
+  value: string;
 }
 
-const Indicator: React.FC<IndicatorProps> = ({ title, subtitle, value, type }) => {
-  let iconComponent;
-
-  switch (type) {
-    case 'sunny':
-      iconComponent = <WbSunny />;
-      break;
-    case 'cloudy':
-      iconComponent = <Cloud />;
-      break;
-    case 'beach':
-      iconComponent = <BeachAccess />;
-      break;
+const getIcon = (title?: string) => {
+  switch (title) {
+    case 'Latitude':
+      return faMapMarkerAlt;
+    case 'Longitude':
+      return faGlobe;
+    case 'geobaseid':
+      return faCompass;
     default:
-      iconComponent = null;
+      return faMapMarkerAlt;
   }
+};
+
+const Indicator: React.FC<Config> = ({ title, subtitle, value }) => {
+  const icon = getIcon(title);
 
   return (
-    <Card sx={{ maxWidth: '100%' }}>
-      <CardContent>
-        <Typography variant="h5" component="div" color="primary">
-          {title}
-        </Typography>
-        <Typography variant="h6" component="div">
-          {value}
-        </Typography>
-        <Typography variant="body2" color="textSecondary">
-          {subtitle}
-        </Typography>
-        {iconComponent && <Icon>{iconComponent}</Icon>}
-      </CardContent>
-    </Card>
+    <div className="card mb-3">
+      <div className="card-body">
+        <div className="d-flex align-items-center">
+          <FontAwesomeIcon icon={icon} className="me-2" />
+          <div>
+            <h5 className="card-title">{title}</h5>
+            <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>
+            <p className="card-text">{value}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
