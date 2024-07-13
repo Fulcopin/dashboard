@@ -1,4 +1,3 @@
-import React from 'react';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -8,7 +7,7 @@ import { BeachAccess, Cloud, WbSunny } from '@mui/icons-material'; // Ejemplos d
 interface IndicatorProps {
   title: string;
   subtitle: string;
-  value: number;
+  value: string | number; // Acepta tanto string como number
   type: 'sunny' | 'cloudy' | 'beach'; // Tipo de indicador para seleccionar el ícono adecuado
 }
 

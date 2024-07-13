@@ -1,40 +1,181 @@
-/* Estilos generales */
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f3f4f6;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 1200px;
+#root {
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.header {
-  background-color: #61dafb;
-  color: #fff;
-  padding: 10px;
+  padding: 2rem;
   text-align: center;
+  background-color: rgba(224, 247, 250, 0.8); /* Fondo azul claro con transparencia */
+  background-image: url('https://www.shutterstock.com/image-vector/plasticine-3d-weather-icons-render-600nw-2246769899.jpg'); /* URL de la imagen de fondo */
+  background-size: 50%; /* Reducir el tamaño de la imagen */
+  background-repeat: no-repeat; /* Evitar que la imagen se repita */
+  background-position: center;
+  background-blend-mode: overlay; /* Mezcla el color de fondo con la imagen */
 }
 
 .card {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 20px;
-  margin: 10px;
-  width: 300px;
-  text-align: center;
+  padding: 2em;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  margin: 1rem 0;
 }
 
-@media (max-width: 768px) {
-  .card {
-    width: 100%;
+
+.nav {
+  background-color: #3b5998; /* Azul oscuro */
+  color: white;
+  padding: 1rem;
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.nav ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.nav li {
+  margin-right: 1rem;
+}
+
+.nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #009688aa); /* Sombra verde */
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+
+.read-the-docs {
+  color: #888;
+}
+
+body {
+  display: grid;
+  grid-template-areas:
+    "N N N"
+    "PD ID ID"
+    "PS PS PS"
+    "G1 G1 G1"
+    "TD TD TD"
+    "MP MP MP";
+  gap: 1rem;
+}
+
+header {
+  grid-area: N;
+}
+
+#pronostico_diario {
+  grid-area: PD;
+  width: 100%;
+}
+
+#indicadores_diarios {
+  grid-area: ID;
+  width: 100%;
+}
+
+#pronostico_semanal {
+  grid-area: PS;
+}
+
+#garficos_clima {
+  grid-area: G1;
+}
+
+#tabla_datos {
+  grid-area: TD;
+}
+
+#mapa_zona {
+  grid-area: MP;
+}
+
+@media only screen and (max-width: 767px) {
+  /* Estilos para dispositivos móviles */
+  body {
+    display: grid;
+    grid-template-areas:
+      "N"
+      "PD"
+      "ID"
+      "PS"
+      "G"
+      "TD"
+      "MP";
+  }
+  #weekly_report {
+    grid-template-areas:
+      "A"
+      "B"
+      "C"
+      "D"
+      "E";
+  }
+}
+
+.card_container {
+  display: grid;
+  justify-items: center;
+}
+
+#weekly_report {
+  display: grid;
+  gap: 1%;
+  grid-template-areas: "A A B B C C D D E E";
+}
+
+#dia-1 {
+  grid-area: A;
+}
+
+#dia-2 {
+  grid-area: B;
+}
+
+#dia-3 {
+  grid-area: C;
+}
+
+#dia-4 {
+  grid-area: D;
+}
+
+#dia-5 {
+  grid-area: E;
+}
+
+table.default tr:not(:nth-child(1)):not(:nth-child(2)) {
+  display: none;
 }

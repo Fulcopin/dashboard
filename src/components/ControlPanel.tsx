@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useRef } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -14,12 +14,10 @@ export default function ControlPanel() {
     { name: 'Nubosidad', description: 'Grado de cobertura del cielo por nubes, afectando la visibilidad y la cantidad de luz solar recibida.' },
   ];
 
-  const [selected, setSelected] = useState(-1);
   const descriptionRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (event: SelectChangeEvent) => {
     const idx = parseInt(event.target.value);
-    setSelected(idx);
 
     if (descriptionRef.current !== null) {
       descriptionRef.current.innerHTML = idx >= 0 ? items[idx].description : '';
