@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 const Pronostico = () => {
     const [diarioData, setDiarioData] = useState<any>(null);
     const [semanalData, setSemanalData] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true); // Estado para manejar la carga
+    const [error, setError] = useState<string | null>(null); // Estado para manejar errores
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,6 +33,9 @@ const Pronostico = () => {
                 setSemanalData(semanalJson.list);
             } catch (error) {
                 console.error("Error fetching data:", error);
+               
+            } finally {
+                setLoading(false); // Asegurarse de establecer loading a false al final
             }
         };
 
@@ -52,7 +57,17 @@ const Pronostico = () => {
         return diasSemana[numeroDiaSemana];
     };
 
-   
+    if (loading) {
+        return <div>Loading...</div>; // Mostrar mensaje de carga mientras se obtiene la información
+    }
+
+    if (error) {
+        return <div>Error al cargar los datos: {error}</div>; // Mostrar mensaje de error si ocurre
+    }
+
+    if (!diarioData || !semanalData.length) {
+        return <div>No se encontraron datos</div>; // Manejo de errores si no se obtienen datos
+    }
 
     const { main, wind, weather } = diarioData;
 
