@@ -11,7 +11,7 @@ const Pronostico = () => {
             const API_KEY = "1e29d26cf4b4a687aba082a70b0eb34d"; 
             const endpointDiario = `https://api.openweathermap.org/data/2.5/weather?lat=-2.1962&lon=-79.8862&units=metric&appid=${API_KEY}&lang=es`;
             const endpointSemanal = `https://api.openweathermap.org/data/2.5/forecast?q=Guayaquil&units=metric&appid=${API_KEY}&lang=es`;
-            try {
+            try { 
                 const [diarioResponse, semanalResponse] = await Promise.all([
                     fetch(endpointDiario),
                     fetch(endpointSemanal)
