@@ -33,7 +33,7 @@ const Pronostico = () => {
                 setSemanalData(semanalJson.list);
             } catch (error) {
                 console.error("Error fetching data:", error);
-               
+                setError((error as Error).message); // Establecer el mensaje de error
             } finally {
                 setLoading(false); // Asegurarse de establecer loading a false al final
             }
