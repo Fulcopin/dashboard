@@ -12,26 +12,26 @@ const Navbar: React.FC = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
           <li className="nav-item">
-              <a className="nav-link" href="#reloj">Reloj Mundial</a>
+              <a className="nav-link" href="#reloj">RELOJ </a>
             </li>
           <li className="nav-item">
-              <a className="nav-link" href="#coordenadas">Cordenadas Geograficas</a>
+              <a className="nav-link" href="#coordenadas">COORDENADAS</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#indicadores_diarios">Indicadores</a>
+              <a className="nav-link" href="#indicadores_diarios">INDICADORES</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#pronostico_diario">Pronóstico del día</a>
+              <a className="nav-link" href="#pronostico_diario">PRONOSTICO DEL DIA</a>
             </li>
             
             <li className="nav-item">
-              <a className="nav-link" href="#pronostico_semanal">Pronóstico semanal</a>
+              <a className="nav-link" href="#pronostico_semanal">PRONOSTICO SEMANAL</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#graficos_clima">Tendencias climáticas</a>
+              <a className="nav-link" href="#graficos_clima">TENDENCIAS CLIMATICAS</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#tabla_datos">Pronósticos detallados</a>
+              <a className="nav-link" href="#tabla_datos">DATOS METEOROLOGICOS</a>
             </li>
            
           </ul>
